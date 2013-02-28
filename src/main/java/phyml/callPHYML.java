@@ -1,5 +1,7 @@
 package phyml;
 
+import java.io.File;
+
 import nz.org.nesi.phyml.swing.GridPanel;
 import nz.org.nesi.phyml.swing.PhyMLJobSubmit;
 
@@ -320,19 +322,29 @@ public class callPHYML {
 		// Identify the current OS to select correct version of PhyML to use
 		String os = System.getProperty("os.name");
 		System.out.println("OS: " + os);
+		
+		File binDir = new File(System.getProperty("user.dir"), "bin");
+		
+		if ( ! binDir.exists() ) {
+			binDir = new File(System.getProperty("user.dir")).getParentFile();
+			binDir = new File(binDir, "phyml");
+			if ( binDir.exists() ) {
+				throw new RuntimeException("Can't find directory for phyml binaries");
+			}
+		}
 
 		// Windows OS
 		if (os.matches("(?i).*Windows.*")) {
-			phymlVer = System.getProperty("user.dir")
-					+ "\\bin\\PhyML-aBayes_win32.exe ";
+			phymlVer = binDir.getAbsolutePath()
+					+ "\\PhyML-aBayes_win32.exe ";
 
 			// command = phymlPath + " ";
 		}
 		// Mac OS
 		if (os.matches("(?i).*Mac OS.*")) {
 			// stick code in here to run OSX version of phyml
-			phymlVer = System.getProperty("user.dir")
-					+ "/bin/PhyML-aBayes_macOS_i386 ";
+			phymlVer = binDir.getAbsolutePath()
+					+ "/PhyML-aBayes_macOS_i386 ";
 		}
 		// Some Linux distro
 		if (os.matches("(i?).*Linux.*")) {
@@ -340,13 +352,13 @@ public class callPHYML {
 			String osArch = System.getProperty("os.arch");
 			if (osArch.endsWith("64")) {
 				System.out.println("Running 64-bit JVM, using 64-bit PhyML");
-				phymlVer = System.getProperty("user.dir")
-						+ "/bin/PhyML-Bayes_linux64 ";
+				phymlVer = binDir.getAbsolutePath()
+						+ "/PhyML-Bayes_linux64 ";
 				//phymlVer = "phyml ";
 			} else {
 				System.out.println("Running 32-bit JVM, using 32-bit PhyML");
-				phymlVer = System.getProperty("user.dir")
-						+ "/bin/PhyML-Bayes_linux32 ";
+				phymlVer = binDir
+						+ "/PhyML-Bayes_linux32 ";
 			}
 		}
 		if (phymlVer.equals("")) {
