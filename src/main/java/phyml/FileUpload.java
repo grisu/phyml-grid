@@ -1,5 +1,7 @@
 package phyml;
 
+import grisu.jcommons.utils.PackageFileHelper;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -133,8 +135,11 @@ public class FileUpload extends JPanel implements ActionListener, FocusListener 
 				PhymlPanel.UnLockInterleaved(false);
 				PhymlPanel.SetNumDS();
 				PhymlPanel.UnLockNumDS(false);
-				PhymlPanel.setInputFile(System.getProperty("user.dir")
-						+ "/exampleOutput/phyml_ex.txt");
+				
+				String temp = PackageFileHelper.getPath("phyml_ex.txt");
+				PhymlPanel.setInputFile(temp);
+//				PhymlPanel.setInputFile(System.getProperty("user.dir")
+//						+ "/exampleOutput/phyml_ex.txt");
 				PhymlPanel.loadTrees();
 			}
 		} else if (e.getSource() == choice2) {
@@ -149,8 +154,10 @@ public class FileUpload extends JPanel implements ActionListener, FocusListener 
 				PhymlPanel.UnLockInterleaved(false);
 				PhymlPanel.SetNumDS();
 				PhymlPanel.UnLockNumDS(false);
-				PhymlPanel.setInputFile(System.getProperty("user.dir")
-						+ "/exampleOutput/phyml_ex.txt");
+				String temp = PackageFileHelper.getPath("phyml_ex.txt");
+				PhymlPanel.setInputFile(temp);
+//				PhymlPanel.setInputFile(System.getProperty("user.dir")
+//						+ "/exampleOutput/phyml_ex.txt");
 				PhymlPanel.loadTrees();
 			} else {
 				pathField.setEnabled(true);
