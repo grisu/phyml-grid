@@ -331,9 +331,12 @@ public class callPHYML {
 		
 		File binDir = new File(System.getProperty("user.dir"), "bin");
 		
+		myLogger.debug("Checking bin dir: "+binDir.getAbsolutePath());
+		
 		if ( ! binDir.exists() ) {
 			binDir = new File(System.getProperty("user.dir")).getParentFile();
 			binDir = new File(binDir, "phyml");
+			myLogger.debug("Didn't work, now checking bin dir: "+binDir.getAbsolutePath());
 			if ( binDir.exists() ) {
 				throw new RuntimeException("Can't find directory for phyml binaries");
 			}
