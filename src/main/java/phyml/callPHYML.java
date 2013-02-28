@@ -2,6 +2,9 @@ package phyml;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import nz.org.nesi.phyml.swing.GridPanel;
 import nz.org.nesi.phyml.swing.PhyMLJobSubmit;
 
@@ -18,6 +21,9 @@ import nz.org.nesi.phyml.swing.PhyMLJobSubmit;
  * 
  */
 public class callPHYML {
+	
+	public static final Logger myLogger = LoggerFactory.getLogger(callPHYML.class);
+	
 	/**
 	 * Method to call the program PHYML via command line. Note: if unsure of
 	 * what the parameters exactly are, please read the PHYML documentation. The
@@ -332,6 +338,8 @@ public class callPHYML {
 				throw new RuntimeException("Can't find directory for phyml binaries");
 			}
 		}
+		
+		myLogger.debug("Using bin dir: "+binDir.getAbsolutePath());
 
 		// Windows OS
 		if (os.matches("(?i).*Windows.*")) {
