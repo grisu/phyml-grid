@@ -398,7 +398,7 @@
 
 
 	<properties>
-		<grisu.version>0.5.18</grisu.version>
+		<grisu.version>0.5.30</grisu.version>
 	</properties>
 	<scm>
 		<url>https://github.com/grisu/phyml-grid</url>
