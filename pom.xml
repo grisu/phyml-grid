@@ -400,5 +400,15 @@
 	<properties>
 		<grisu.version>0.5.18</grisu.version>
 	</properties>
+	<scm>
+		<url>https://github.com/grisu/phyml-grid</url>
+		<connection>scm:git:git://github.com/grisu/phyml-grid.git</connection>
+		<developerConnection>scm:git:git@github.com:grisu/phyml-grid.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/grisu/phyml-grid/issues</url>
+	</issueManagement>
 </project>
 
