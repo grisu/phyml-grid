@@ -120,7 +120,7 @@ public class callPHYML {
 		try {
 			if (command.equals("")) {
 				StandardOutPanel
-						.setInput("ERROR: Your operating system is not supported ... Nerd!");
+						.setInput("ERROR: Your operating system is not supported...");
 				return;
 			}
 			// extract from the command line string the place where to put the

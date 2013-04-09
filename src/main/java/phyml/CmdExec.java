@@ -3,6 +3,7 @@ package phyml;
 import grisu.frontend.control.login.LoginManager;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 import nz.org.nesi.phyml.Client;
@@ -39,8 +40,23 @@ public class CmdExec extends Thread {
 
 	@Override
 	public void run() {
+		
+
 		int exitStatus = -1;
 		if (!cmd.equals("")&&args.length==0) {
+
+			try {
+			System.out.println("CMD: "+this.cmd);
+			String token = cmd.split(" ")[0];
+			
+			System.out.println("COMMAND: "+token);
+			
+			File file = new File(token);
+			file.setExecutable(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			try {
 				Runtime rt = Runtime.getRuntime();
 				Process process = rt.exec(cmd);
