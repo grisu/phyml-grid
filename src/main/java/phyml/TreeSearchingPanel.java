@@ -1,6 +1,7 @@
 package phyml;
 
 import java.awt.Color;
+
 import javax.swing.JPanel;
 /**
  * Instantiats all components for the settings of tree

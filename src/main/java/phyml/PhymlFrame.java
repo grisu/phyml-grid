@@ -1,7 +1,10 @@
 package phyml;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Container;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Highly customisable standard frame for graphical user interface.

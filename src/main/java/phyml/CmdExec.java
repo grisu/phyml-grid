@@ -1,8 +1,10 @@
 package phyml;
 
+import grisu.frontend.control.login.LoginManager;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import grisu.frontend.control.login.LoginManager;
+
 import nz.org.nesi.phyml.Client;
 import nz.org.nesi.phyml.PhyMLParameters;
 

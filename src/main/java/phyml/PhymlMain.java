@@ -3,6 +3,7 @@ package phyml;
 import grisu.frontend.control.login.LoginManager;
 import grisu.frontend.view.swing.utils.DefaultExceptionHandler;
 import grisu.jcommons.utils.EnvironmentVariableHelpers;
+import grith.jgrith.Environment;
 
 import javax.swing.JFrame;
 
@@ -34,7 +35,7 @@ public class PhymlMain {
 
 		Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
 
-		LoginManager.initEnvironment();
+		Environment.initEnvironment();
 		
 		PhymlPanel frameContent = new PhymlPanel();
 		@SuppressWarnings("unused")

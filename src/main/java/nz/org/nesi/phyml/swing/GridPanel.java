@@ -1,7 +1,6 @@
 package nz.org.nesi.phyml.swing;
 
 import grisu.control.ServiceInterface;
-import grisu.frontend.view.swing.jobmonitoring.single.SimpleSingleJobsGrid;
 import grisu.frontend.view.swing.jobmonitoring.single.SingleJobTabbedPane;
 import grisu.frontend.view.swing.login.GrisuLoginPanel;
 import grisu.frontend.view.swing.login.LoginProgressPanel;

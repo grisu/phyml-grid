@@ -2,11 +2,11 @@ package phyml;
 
 import java.io.File;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import nz.org.nesi.phyml.swing.GridPanel;
 import nz.org.nesi.phyml.swing.PhyMLJobSubmit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**

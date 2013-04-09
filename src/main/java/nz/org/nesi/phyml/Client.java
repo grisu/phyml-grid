@@ -1,9 +1,5 @@
 package nz.org.nesi.phyml;
 
-import org.apache.commons.lang.StringUtils;
-
-import phyml.StandardOutPanel;
-
 import grisu.control.ServiceInterface;
 import grisu.control.exceptions.JobPropertiesException;
 import grisu.control.exceptions.JobSubmissionException;
@@ -12,6 +8,10 @@ import grisu.frontend.view.cli.GrisuCliClient;
 import grisu.jcommons.constants.Constants;
 import grisu.jcommons.utils.WalltimeUtils;
 import grisu.model.FileManager;
+
+import org.apache.commons.lang.StringUtils;
+
+import phyml.StandardOutPanel;
 
 public class Client extends GrisuCliClient<PhyMLParameters> {
 	

@@ -40,6 +40,12 @@
 			<version>${grisu.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>jgoodiesforms</artifactId>
+					<groupId>com.jgoodies</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 <!-- 		<dependency> -->
