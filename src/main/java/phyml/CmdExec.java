@@ -45,11 +45,9 @@ public class CmdExec extends Thread {
 		int exitStatus = -1;
 		if (!cmd.equals("")&&args.length==0) {
 
+			// trying to set executable flag, just in case.
 			try {
-			System.out.println("CMD: "+this.cmd);
 			String token = cmd.split(" ")[0];
-			
-			System.out.println("COMMAND: "+token);
 			
 			File file = new File(token);
 			file.setExecutable(true);

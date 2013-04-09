@@ -3,6 +3,7 @@ package nz.org.nesi.phyml;
 import grisu.control.ServiceInterface;
 import grisu.control.exceptions.JobPropertiesException;
 import grisu.control.exceptions.JobSubmissionException;
+import grisu.frontend.control.jobMonitoring.RunningJobManager;
 import grisu.frontend.model.job.GrisuJob;
 import grisu.frontend.view.cli.GrisuCliClient;
 import grisu.jcommons.constants.Constants;
@@ -85,7 +86,8 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 		try {
 			StandardOutPanel.setInput("Creating job on backend...");
 			// group might need to change
-			job.createJob("/nz/nesi");
+			RunningJobManager.getDefault(si).createJob(job, "/nz/nesi");
+			//job.createJob("/nz/nesi");
 		} catch (JobPropertiesException e) {
 			StandardOutPanel.setInput("Could not create job: "
 					+ e.getLocalizedMessage());
