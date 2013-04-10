@@ -87,7 +87,6 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 			StandardOutPanel.setInput("Creating job on backend...");
 			// group might need to change
 			RunningJobManager.getDefault(si).createJob(job, "/nz/nesi");
-			//job.createJob("/nz/nesi");
 		} catch (JobPropertiesException e) {
 			StandardOutPanel.setInput("Could not create job: "
 					+ e.getLocalizedMessage());
