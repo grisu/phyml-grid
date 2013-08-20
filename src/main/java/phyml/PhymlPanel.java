@@ -1,28 +1,46 @@
 package phyml;
 
+import grisu.control.ServiceInterface;
+import grisu.frontend.control.login.LoginException;
+import grisu.frontend.control.login.LoginManager;
+import grith.gridsession.GridClient;
+import grith.jgrith.cred.AbstractCred;
+import grith.jgrith.cred.Cred;
+import nz.org.nesi.phyml.swing.GridPanel;
+import phyml.view.CredCreationDialog;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
-import nz.org.nesi.phyml.swing.GridPanel;
-
 /**
- * 
+ *
  * This Class implements the main JPanel . It specifies the layout of the
  * different components and controls the interaction between the different
  * components.
- * 
+ *
  * @author Christoph Knapp
  * @version 15-June-2012
- * 
+ *
  */
 
 public class PhymlPanel extends JPanel implements ActionListener {
+
+    private CredCreationDialog ccd = null;
+
+    public void showLoginDialog() {
+        getCredCreationDialog().setVisible(true);
+    }
+
+    private CredCreationDialog getCredCreationDialog() {
+        if ( ccd == null ) {
+            ccd = new CredCreationDialog(gridClient);
+            ccd.pack();
+        }
+        return ccd;
+    }
+
 	/**
 	 * default id
 	 */
@@ -37,13 +55,16 @@ public class PhymlPanel extends JPanel implements ActionListener {
 //	private static TreePanel treePanel;
 	private JTabbedPane tabbedPane;
 	private JCheckBox nesiSubmit;
+    private final GridClient gridClient;
 
 	/**
 	 * This Class is the main panel for the graphical user interface. I
 	 * specifies the sub panels the phyml gui is subdivided in.
 	 */
-	public PhymlPanel() {
-		CustomGridLayout mainLayout = new CustomGridLayout();
+	public PhymlPanel(GridClient gc) {
+
+        gridClient = gc;
+        CustomGridLayout mainLayout = new CustomGridLayout();
 		setLayout(mainLayout);
 		mainLayout.setDimensions(1, 1);
 		tabbedPane = new JTabbedPane();
@@ -89,11 +110,22 @@ public class PhymlPanel extends JPanel implements ActionListener {
 		p1.add(new JPanel());
 		layout.setDimensions(1, 0.01);
 		mainPan.add(new Separator(false));
-		gridPanel = new GridPanel();
+		gridPanel = new GridPanel(gridClient);
 		tabbedPane.addTab("Run PhyML", mainPan);
 		standardOut = new StandardOutPanel();
 		tabbedPane.addTab("Standard output", standardOut);
 		tabbedPane.addTab("NeSI", gridPanel);
+
+//        tabbedPane.addChangeListener(new ChangeListener() {
+//            public void stateChanged(ChangeEvent e) {
+////                System.out.println("Tab: " + tabbedPane.getSelectedIndex());
+//                if ( tabbedPane.getSelectedIndex() == 2 ) {
+//                    if ( gridPanel.getServiceInterface() != null ) {
+//                        RunningJobManager.getDefault(gridPanel.getServiceInterface()).updateJobnameList("PhyML", true);
+//                    }
+//                }
+//            }
+//        });
 		//settings =  new SettingsPanel();
 		//tabbedPane.addTab("Settings", new JPanel());
 //		treePanel = new TreePanel();
@@ -103,6 +135,30 @@ public class PhymlPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent a) {
+
+        if ( nesiSubmit.isSelected() ) {
+
+            if (gridPanel.getServiceInterface() == null) {
+
+                Cred c = AbstractCred.getExistingCredential();
+
+                if (c == null || !c.isValid()) {
+                    getCredCreationDialog().setVisible(true);
+
+                }
+
+                ServiceInterface si = null;
+                try {
+                    si = LoginManager.login("bestgrid", gridClient.getCredential(), false);
+                } catch (LoginException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+
+                gridPanel.setServiceInterface(si);
+            }
+
+        }
+
 		if (!iDP.getInputPath().equals("") && (new File(iDP.getInputPath())).exists()) {
 //			if(!nesiSubmit.isSelected()){
 				tabbedPane.setSelectedIndex(1);
@@ -360,7 +416,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	/**
 	 * Checks which parameters are selected in the gui and forms the input
 	 * String for the "-o params" parameter
-	 * 
+	 *
 	 * @return – params=tlr: tree topology (t), branch length (l) and
 	 *         substitution rate parameters (r) are optimised.<br>
 	 *         – params=tl: tree topology and branch lengths are optimised.<br>
@@ -392,7 +448,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	/**
 	 * Loads and refreshes the tree panel this method is called when a datafile
 	 * is specified and when an analysis finishes.
-	 * 
+	 *
 	 */
 	public static void loadTrees() {
 		File f = new File(iDP.getInputPath());
@@ -402,7 +458,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	/**
 	 * Disables or enables the submit button. If an analysis is running it is
 	 * disabled otherwise not
-	 * 
+	 *
 	 */
 	public static void SetSubmit(boolean b) {
 		submit.setEnabled(true);
@@ -410,7 +466,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Sets the molecule type in the InputDataPanel object
-	 * 
+	 *
 	 * @param b
 	 *            : true if DNA false if AA
 	 */
@@ -421,7 +477,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	/**
 	 * Sets the tickboxes for "Data Type" to disabled if the example file is
 	 * selected and enabled if not
-	 * 
+	 *
 	 * @param b
 	 *            : true if a file is uploaded, false if a the "example file"
 	 *            tickbox is selected.
@@ -432,7 +488,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Sets the tickboxes for "Sequence File"
-	 * 
+	 *
 	 * @param b
 	 *            true if File is in interleaved ansd false if the File is in
 	 *            sequential
@@ -443,7 +499,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Enables or disables the "Sequence File" tickboxes
-	 * 
+	 *
 	 * @param b
 	 *            : true if enabled, false if disabled
 	 */
@@ -461,7 +517,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Enables or disables the JSpinner for the number of datasets.
-	 * 
+	 *
 	 * @param b
 	 *            true if enabled, false if disabled
 	 */
@@ -473,7 +529,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	 * Sets the JTextField for the input path. this is used when the user
 	 * chooses a file through the JFileChooser or the "Example File" tickbox is
 	 * selected.
-	 * 
+	 *
 	 * @param inputPath
 	 */
 	public static void setInputFile(String inputPath) {
@@ -481,7 +537,7 @@ public class PhymlPanel extends JPanel implements ActionListener {
 	}
 	/**
 	 * Passes on the right moleculetype to all the subclasses i.e substitutionModel
-	 * 
+	 *
 	 * @param molType
 	 * String : either "DNA" or "AA"
 	 */
