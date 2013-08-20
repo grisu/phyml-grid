@@ -4,6 +4,7 @@ import grisu.control.ServiceInterface;
 import grisu.frontend.control.jobMonitoring.RunningJobManager;
 import grisu.frontend.model.job.GrisuJob;
 import grisu.model.FileManager;
+import phyml.PhymlPanel;
 import phyml.StandardOutPanel;
 
 import java.beans.PropertyChangeEvent;
@@ -78,7 +79,8 @@ public class PhyMLJobSubmit {
 		}
 
 
-
+        PhymlPanel.SetSubmit(true);
+        PhymlPanel.loadTrees();
 
 	}
 

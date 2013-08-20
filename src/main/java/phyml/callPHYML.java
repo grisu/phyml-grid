@@ -1,12 +1,11 @@
 package phyml;
 
-import java.io.File;
-
 import nz.org.nesi.phyml.swing.GridPanel;
 import nz.org.nesi.phyml.swing.PhyMLJobSubmit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 
 /**
@@ -15,21 +14,21 @@ import org.slf4j.LoggerFactory;
  * PHYML correlating to the OS (Windows, OSX, Linux 32-bit, Linux 64-bit) with
  * flags corresponding to the parameters is called after determination of the
  * user's OS.
- * 
+ *
  * @author Vicky Fan, Christoph Knapp
  * @version 14-June-2012
- * 
+ *
  */
 public class callPHYML {
-	
+
 	public static final Logger myLogger = LoggerFactory.getLogger(callPHYML.class);
-	
+
 	/**
 	 * Method to call the program PHYML via command line. Note: if unsure of
 	 * what the parameters exactly are, please read the PHYML documentation. The
 	 * parameters are passed from the GUI.
-	 * @param nesiSubmit 
-	 * 
+	 * @param nesiSubmit
+	 *
 	 * @param seqFileName
 	 *            filename of nucleotide/aa file (phylip format)
 	 * @param dataType
@@ -92,9 +91,9 @@ public class callPHYML {
 	 *            file name topological constraints
 	 * @param quiet
 	 *            runs PhyML in quiet mode
-	 * 
+	 *
 	 * @return void
-	 * 
+	 *
 	 */
 	public static void callPhyML(GridPanel gridPanel, boolean nesiSubmit, String seqFileName, String dataType,
 			String sequential, String nDataSets, String parsimony,
@@ -128,12 +127,15 @@ public class callPHYML {
 			// file/binaries and call "UnpackExecutableFile" to unpack the right
 			// fies there.
 			//UnpackExecutableFile.start(command.split(" ")[0]);
+
+            StandardOutPanel.clearPanel();
+
 			if(!nesiSubmit){
 				CmdExec exec = new CmdExec(command);
 				exec.start();
 			}else{
 				final PhyMLJobSubmit job = new PhyMLJobSubmit(gridPanel.getServiceInterface(), command, seqFileName);
-				
+
 				Thread t = new Thread() {
 					public void run() {
 						try {
@@ -143,10 +145,10 @@ public class callPHYML {
 						}
 					};
 				};
-				
+
 				t.start();
-				
-				
+
+
 //				SwingClient frame = new SwingClient(command,seqFileName);
 //				frame.run();
 			}
@@ -158,8 +160,8 @@ public class callPHYML {
 	/**
 	 * Method to return a correctly formated string of the PhyML program
 	 * (version) path with the parameters formatted with the correct flags
-	 * @param nesiSubmit 
-	 * 
+	 * @param nesiSubmit
+	 *
 	 * @param seqFileName
 	 *            filename of nucleotide/aa file (phylip format)
 	 * @param dataType
@@ -222,7 +224,7 @@ public class callPHYML {
 	 *            file name topological constraints
 	 * @param quiet
 	 *            runs PhyML in quiet mode
-	 * 
+	 *
 	 * @return String to call PhyML with all flags
 	 */
 
@@ -317,7 +319,7 @@ public class callPHYML {
 	 * Method to obtain the correct path of the PhyML version to use depending
 	 * on the OS and OS architecture of user computer. OS arch in practice is
 	 * actually the bit version of the JVM.
-	 * 
+	 *
 	 * @return String of the absolute path of PhyML
 	 */
 	// Method to identify the OS and bit-version of OS.
@@ -328,11 +330,11 @@ public class callPHYML {
 		// Identify the current OS to select correct version of PhyML to use
 		String os = System.getProperty("os.name");
 		System.out.println("OS: " + os);
-		
+
 		File binDir = new File(System.getProperty("user.dir"), "bin");
-		
+
 		myLogger.debug("Checking bin dir: "+binDir.getAbsolutePath());
-		
+
 		if ( ! binDir.exists() ) {
 			binDir = new File(System.getProperty("user.dir")).getParentFile();
 			binDir = new File(binDir, "phyml");
@@ -341,7 +343,7 @@ public class callPHYML {
 				throw new RuntimeException("Can't find directory for phyml binaries");
 			}
 		}
-		
+
 		myLogger.debug("Using bin dir: "+binDir.getAbsolutePath());
 
 		// Windows OS
