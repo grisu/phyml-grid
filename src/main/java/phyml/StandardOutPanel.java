@@ -1,5 +1,7 @@
 package phyml;
 
+import grisu.jcommons.utils.swing.SmartScroll;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
@@ -36,6 +38,7 @@ public class StandardOutPanel extends JPanel {
 		editorPane.setEditable(false);
 		editorPane.setDropMode(DropMode.INSERT);
 		editorScrollPane = new JScrollPane(editorPane);
+        new SmartScroll(editorScrollPane);
 		editorScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		editorScrollPane

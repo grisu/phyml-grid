@@ -1,7 +1,7 @@
 package nz.org.nesi.phyml.swing;
 
 import grisu.control.ServiceInterface;
-import grisu.frontend.control.jobMonitoring.RunningJobManager;
+import grisu.frontend.control.jobMonitoring.RunningJobManagerImpl;
 import grisu.frontend.model.job.GrisuJob;
 import grisu.model.FileManager;
 import phyml.PhymlPanel;
@@ -70,7 +70,7 @@ public class PhyMLJobSubmit {
 		job.addPropertyChangeListener(l);
 
 		try {
-		RunningJobManager.getDefault(si).createJob(job, "/nz/nesi");
+		RunningJobManagerImpl.getDefault(si).createJob(job, "/nz/nesi");
 
 		job.submitJob();
 

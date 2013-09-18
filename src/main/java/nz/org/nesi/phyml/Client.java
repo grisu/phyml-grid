@@ -3,19 +3,17 @@ package nz.org.nesi.phyml;
 import grisu.control.ServiceInterface;
 import grisu.control.exceptions.JobPropertiesException;
 import grisu.control.exceptions.JobSubmissionException;
-import grisu.frontend.control.jobMonitoring.RunningJobManager;
+import grisu.frontend.control.jobMonitoring.RunningJobManagerImpl;
 import grisu.frontend.model.job.GrisuJob;
 import grisu.frontend.view.cli.GrisuCliClient;
 import grisu.jcommons.constants.Constants;
 import grisu.jcommons.utils.WalltimeUtils;
 import grisu.model.FileManager;
-
 import org.apache.commons.lang.StringUtils;
-
 import phyml.StandardOutPanel;
 
 public class Client extends GrisuCliClient<PhyMLParameters> {
-	
+
 	public static final String DEFAULT_PHYML_PARAMETERS = "-d nt -q -n 1 -m HKY85 -f e -t e -v 0.0 -c 4 -a e -o tl --print_site_lnl --print_trace --no_memory_check";
 
 	public Client(PhyMLParameters params, String[] args) throws Exception {
@@ -38,7 +36,7 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 		if ( StringUtils.isBlank(parameters) ) {
 			StandardOutPanel.setInput("Using default phymlparameters: "+DEFAULT_PHYML_PARAMETERS);
 		}
-		
+
 		String walltimeTemp = getCliParameters().getWalltime();
 		int walltime = -1;
 		try {
@@ -48,7 +46,7 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 			StandardOutPanel.setInput("Invalid walltime specified: "+walltimeTemp);
 			System.exit(1);
 		}
-		
+
 		int cpus = getCliParameters().getCpus();
 		StandardOutPanel.setInput("CPUs to use: : "+cpus);
 
@@ -67,15 +65,15 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 		// ============ Job creation ======================================================
 		StandardOutPanel.setInput("Creating job...");
 		GrisuJob job = new GrisuJob(si);
-		
+
 		// we can savely hard-code that. might need a config option for version though
 		job.setApplication("phyml");
 		job.setApplicationVersion("20120412");
 		job.setSubmissionLocation("pan:pan.nesi.org.nz");
-		
+
 		job.setCommandline("/share/apps/phyml-20120412/bin/phyml-mpi -i "+phyml_input_filename+" "+parameters);
 		job.addInputFileUrl(phyml_input_file_path);
-		
+
 		job.setCpus(cpus);
 		job.setWalltimeInSeconds(walltime);
 
@@ -86,7 +84,7 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 		try {
 			StandardOutPanel.setInput("Creating job on backend...");
 			// group might need to change
-			RunningJobManager.getDefault(si).createJob(job, "/nz/nesi");
+			RunningJobManagerImpl.getDefault(si).createJob(job, "/nz/nesi");
 		} catch (JobPropertiesException e) {
 			StandardOutPanel.setInput("Could not create job: "
 					+ e.getLocalizedMessage());
@@ -111,7 +109,7 @@ public class Client extends GrisuCliClient<PhyMLParameters> {
 		StandardOutPanel.setInput("Job submitted to: "
 				+ job.getJobProperty(Constants.SUBMISSION_SITE_KEY));
 
-		
+
 		// ============ Waiting for job to finish ================================================
 		StandardOutPanel.setInput("Waiting for job to finish...");
 

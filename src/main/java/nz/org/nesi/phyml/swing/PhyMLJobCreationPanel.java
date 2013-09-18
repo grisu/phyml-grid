@@ -1,31 +1,25 @@
 package nz.org.nesi.phyml.swing;
 
-import grisu.control.ServiceInterface;
-import grisu.frontend.control.jobMonitoring.RunningJobManager;
-import grisu.frontend.model.job.GrisuJob;
-import grisu.frontend.view.swing.jobcreation.JobCreationPanel;
-import grisu.frontend.view.swing.jobcreation.widgets.SubmissionLogPanel;
-import grisu.model.dto.GridFile;
-
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import nz.org.nesi.phyml.Client;
-
-import org.apache.commons.lang.StringUtils;
-import org.jdesktop.swingx.JXErrorPane;
-import org.jdesktop.swingx.error.ErrorInfo;
-
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import grisu.control.ServiceInterface;
+import grisu.frontend.control.jobMonitoring.RunningJobManagerImpl;
+import grisu.frontend.model.job.GrisuJob;
+import grisu.frontend.view.swing.jobcreation.JobCreationPanel;
+import grisu.frontend.view.swing.jobcreation.widgets.SubmissionLogPanel;
+import grisu.model.dto.GridFile;
+import nz.org.nesi.phyml.Client;
+import org.apache.commons.lang.StringUtils;
+import org.jdesktop.swingx.JXErrorPane;
+import org.jdesktop.swingx.error.ErrorInfo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
 
 public class PhyMLJobCreationPanel extends JPanel implements JobCreationPanel {
 	// the button to submit a job
@@ -152,7 +146,7 @@ public class PhyMLJobCreationPanel extends JPanel implements JobCreationPanel {
 					// disable the submit button so the user can't inadvertently
 					// submit 2 jobs in a row
 					lockUI(true);
-					
+
 					// get the values the user selected
 					String parameters = getPhyMLParameterInputMask().getParameters();
 					int cpus = getPhyMLParameterInputMask().getCpuValue();
@@ -173,18 +167,18 @@ public class PhyMLJobCreationPanel extends JPanel implements JobCreationPanel {
 						parameters = Client.DEFAULT_PHYML_PARAMETERS;
 					}
 
-					
+
 					// now, let's create the job
 					GrisuJob job = new GrisuJob(si);
 					// ... and connect it to the submission log panel so the
 					// user can see that there's something going on...
 					getSubmissionLogPanel().setJobObject(job);
 					// .. every job needs its own unique jobname. In this case we'll use the name of the input file and a timestamp
-					
+
 					job.setApplication("phyml");
 					job.setApplicationVersion("20120412");
 					job.setSubmissionLocation("pan:pan.nesi.org.nz");
-					
+
 
 					job.setTimestampJobname(inputFile.getName());
 					// this is required and the most important part of the job
@@ -195,13 +189,13 @@ public class PhyMLJobCreationPanel extends JPanel implements JobCreationPanel {
 					job.setWalltimeInSeconds(walltime);
 					// setting the cpus
 					job.setCpus(cpus);
-					
+
 					// finally, we also have to attach the input file so it gets uploaded / copied into the job directory
 					job.addInputFileUrl(inputFile.getUrl());
-					
+
 					// using the '/nz/nesi' group hard-coded here, we might need to change that later
 					// creating the job using the RunningJobManager notifies the job monitoring panel that there is a new job
-					RunningJobManager.getDefault(si).createJob(job, "/nz/nesi");
+					RunningJobManagerImpl.getDefault(si).createJob(job, "/nz/nesi");
 
 					// last not least, we stage in files and submit the job
 					job.submitJob();
