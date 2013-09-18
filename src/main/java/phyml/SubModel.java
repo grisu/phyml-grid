@@ -1,30 +1,23 @@
 package phyml;
 
-import java.awt.Dimension;
+import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
-
 /**
  * Class for instantiating all components to specify the actual substitution
  * model as well as setting there size and location.
- * 
+ *
  * @author Christoph Knapp
- * 
+ *
  */
 
 public class SubModel extends JPanel implements ActionListener {
@@ -48,7 +41,7 @@ public class SubModel extends JPanel implements ActionListener {
 	/**
 	 * Constructor method for instantiating all components for specifying the
 	 * substitution model and setting there size and location.
-	 * 
+	 *
 	 * @param molecularType
 	 *            Setting either "DNA" as molecule type or "AA".
 	 */
@@ -88,7 +81,7 @@ public class SubModel extends JPanel implements ActionListener {
 		if (molecularType.equals("AA")) {
 			setCompVisible(false);
 		}
-		
+
 		CustomGridLayout layout = new CustomGridLayout();
 		setLayout(layout);
 		layout.setDimensions(1, 0.05);
@@ -149,7 +142,7 @@ public class SubModel extends JPanel implements ActionListener {
 
 	/**
 	 * This method sets all components in the gui to visible or not visible.
-	 * 
+	 *
 	 * @param b
 	 *            boolean : true if visible, false if not visible.
 	 */
@@ -164,7 +157,7 @@ public class SubModel extends JPanel implements ActionListener {
 	/**
 	 * Changes the Comboboxmodel for the substitution model dropdown menu to DNA
 	 * models or AA models.
-	 * 
+	 *
 	 * @param molType
 	 *            String : either "DNA" or "AA".
 	 */
@@ -174,7 +167,7 @@ public class SubModel extends JPanel implements ActionListener {
 			modelBox.setModel(new DefaultComboBoxModel(new String[] { "HKY85",
 					"F84", "TN93", "GTR", "custom", "JC69", "K80" }));
 			setCompVisible(true);
-			equiBox.setModel(new DefaultComboBoxModel(new String[] { "empirical", 
+			equiBox.setModel(new DefaultComboBoxModel(new String[] { "empirical",
 					"optimised" ,"user defined" }));
 			eFLab.setText("Equilibrium Frequency");
 			freqPanel.setVisible(true);
@@ -213,9 +206,9 @@ public class SubModel extends JPanel implements ActionListener {
 		}
 
 		/**
-		 * 
+		 *
 		 * @author Christoph Knapp
-		 * 
+		 *
 		 */
 		class NumOnlyDocument extends PlainDocument {
 			/**
@@ -282,7 +275,7 @@ public class SubModel extends JPanel implements ActionListener {
 				equiBox.setSelectedIndex(2);
 				setFrequencies("0.25","0.25","0.25","0.25");
 				setSelectedCompEnabled(1);
-				
+
 			}else if (modelBox.getSelectedItem().toString().equals("custom")) {
 				setOptimiseRateOff(true);
 				setOptimiseRate("YES");
@@ -343,22 +336,22 @@ public class SubModel extends JPanel implements ActionListener {
 	private void setOptimiseRate(String string) {
 		if(string.equals("YES")){
 			choice1.setSelected(true);
-			choice1.setSelected(false);
+			choice2.setSelected(false);
 		}else if(string.equals("NO")){
 			choice1.setSelected(false);
-			choice1.setSelected(true);
+			choice2.setSelected(true);
 		}
 	}
 
 	private void setOptimiseRateOff(boolean b) {
 		choice1.setEnabled(!b);
-		choice1.setEnabled(!b);
+		choice2.setEnabled(!b);
 	}
 
 	/**
 	 * Enables or disables components which should only be enabled if a user
 	 * defined model is choosen.
-	 * 
+	 *
 	 * @param i
 	 *            int : which combination of enabled components to select.
 	 */
@@ -376,7 +369,7 @@ public class SubModel extends JPanel implements ActionListener {
 	/**
 	 * Enables or disables components which should only be enabled if a user
 	 * defined model is choosen.
-	 * 
+	 *
 	 * @param b
 	 *            boolean : true if component enabled, false if disabled.
 	 */
@@ -390,7 +383,7 @@ public class SubModel extends JPanel implements ActionListener {
 
 	/**
 	 * The selected model of substitution.
-	 * 
+	 *
 	 * @return String : The selected mode i.e "HKY85". If custom is selected the
 	 *         String represantation of the model consisting of 6 digits is
 	 *         returned i.e. "000000".
@@ -406,7 +399,7 @@ public class SubModel extends JPanel implements ActionListener {
 	/**
 	 * If the moleeculetype AA is selected the user has the possibility to
 	 * provide a rate file.
-	 * 
+	 *
 	 * @return String : The full path to a specified Amino acid rate file.
 	 */
 	public String getAARateFileName() {
@@ -415,7 +408,7 @@ public class SubModel extends JPanel implements ActionListener {
 
 	/**
 	 * Retrieves the command line options for the specified model.
-	 * 
+	 *
 	 * @return String : Comand line option of substitution model frequencies. -f
 	 *         e, m, or “fA,fC,fG,fT” Nucleotide or amino-acid frequencies. – e
 	 *         : the character frequencies are determined as follows : -
@@ -453,7 +446,7 @@ public class SubModel extends JPanel implements ActionListener {
 
 	/**
 	 * Formats the frequencies for the custom substitution model.
-	 * 
+	 *
 	 * @param freq
 	 *            String[] : array of frequencies.
 	 * @return String : The frequencies in form of a comma seperated list for
@@ -465,7 +458,7 @@ public class SubModel extends JPanel implements ActionListener {
 
 	/**
 	 * Whether the Rate parameter needs to be optimised.
-	 * 
+	 *
 	 * @return boolean : true if the rate parameter should be optimised, false
 	 *         otherwise.
 	 */
