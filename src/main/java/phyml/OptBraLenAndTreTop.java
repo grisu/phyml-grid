@@ -1,17 +1,13 @@
 package phyml;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 /**
  * Implements all components necessary for
  * "Tree topology search and "Optimise branch length".
- * 
+ *
  * @author Christoph Knapp
  */
 
@@ -29,14 +25,14 @@ public class OptBraLenAndTreTop extends JPanel implements ActionListener {
 	/**
 	 * Implements all components necessary for
 	 * "Tree topology search and "Optimise branch length".
-	 * 
+	 *
 	 * @param isYes
 	 *            Whether the DropDown menu for selecting Optimise Branch length
 	 *            is visible (false) or not (true).
 	 */
 	public OptBraLenAndTreTop(boolean isYes) {
 		lab1 = new JLabel("Tree Topology Search");
-		lab2 = new JLabel("Opt. Branch Length");
+		lab2 = new JLabel("Optimise Branch Length");
 		TreTopBox = new JComboBox(new String[] { "NNI", "SPR", "NNI and SPR" });
 		choice1 = new JRadioButton("Yes");
 		choice2 = new JRadioButton("No");
@@ -50,7 +46,7 @@ public class OptBraLenAndTreTop extends JPanel implements ActionListener {
 		} else {
 			TreTopBox.setEnabled(false);
 		}
-		
+
 		CustomGridLayout layout = new CustomGridLayout();
 		setLayout(layout);
 		layout.setDimensions(1, 0.1);
@@ -110,7 +106,7 @@ public class OptBraLenAndTreTop extends JPanel implements ActionListener {
 	/**
 	 * Sets whether the Optimise Branch length components or the Tree topology
 	 * components are visible.
-	 * 
+	 *
 	 * @param b
 	 *            If true the optimise branch length components are not visible.
 	 *            and the Tree topology components are visible.<br>
@@ -136,7 +132,7 @@ public class OptBraLenAndTreTop extends JPanel implements ActionListener {
 
 	/**
 	 * Passes the user choice from the "Tree Topology Search" options.
-	 * 
+	 *
 	 * @return "BEST" if "NNI and SPR" is selected and "SPR" if "SPR" is
 	 *         selected, ""(empty String) otherwise.
 	 */
@@ -154,7 +150,7 @@ public class OptBraLenAndTreTop extends JPanel implements ActionListener {
 	/**
 	 * Retrieves whether the "Optimise Branch Length" parameter is set to yes or
 	 * no.
-	 * 
+	 *
 	 * @return Returns true if "Optimise Branch Length" is set to yes otherwise
 	 *         false.
 	 */
