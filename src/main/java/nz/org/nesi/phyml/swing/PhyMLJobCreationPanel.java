@@ -5,7 +5,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import grisu.control.ServiceInterface;
-import grisu.frontend.control.jobMonitoring.RunningJobManagerImpl;
+import grisu.frontend.control.jobMonitoring.RunningJobManagerManager;
 import grisu.frontend.model.job.GrisuJob;
 import grisu.frontend.view.swing.jobcreation.JobCreationPanel;
 import grisu.frontend.view.swing.jobcreation.widgets.SubmissionLogPanel;
@@ -195,7 +195,7 @@ public class PhyMLJobCreationPanel extends JPanel implements JobCreationPanel {
 
 					// using the '/nz/nesi' group hard-coded here, we might need to change that later
 					// creating the job using the RunningJobManager notifies the job monitoring panel that there is a new job
-					RunningJobManagerImpl.getDefault(si).createJob(job, "/nz/nesi");
+					RunningJobManagerManager.getDefault(si).createJob(job, "/nz/nesi");
 
 					// last not least, we stage in files and submit the job
 					job.submitJob();
