@@ -1,22 +1,18 @@
 package phyml;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 /**
- * Implements all components to specify the "# Subcategories", 
+ * Implements all components to specify the "# Subcategories",
  * "Gamma", "Alpha", and the "Average".
- * 
+ *
  * @author Christoph Knapp
  *
  */
@@ -40,12 +36,13 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 	private JRadioButton choice4;
 
 	/**
-	 * Constructor method implements all components to specify the "# Subcategories", "Gamma", 
-	 * "Alpha", and the "Average", it instantiates all components, adds listeners sets size 
+	 * Constructor method implements all components to specify the "# Subcategories", "Gamma",
+	 * "Alpha", and the "Average", it instantiates all components, adds listeners sets size
 	 * and position of components and adds the components.
 	 */
 	public NumSubCatGammaAverage() {
 		subCat = new CustomTextField("", false);
+        subCat.setText("4");
 //		gammaBox = new JComboBox(new String[] { "estimated", "fixed" });
 //		gammaBox.addActionListener(this);
 		choice1 = new JRadioButton("Estimated");
@@ -54,6 +51,7 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 		choice1.addActionListener(this);
 		choice2.addActionListener(this);
 		alpha = new CustomTextField("", true);
+        alpha.setText("1.0");
 		alpha.setEnabled(false);
 		alpha.addFocusListener(this);
 //		average = new JComboBox(new String[] { "mean", "median" });
@@ -66,7 +64,7 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 		lab2 = new JLabel("Gamma Shape Parameter");
 		lab3 = new JLabel("Value");
 		lab4 = new JLabel("Average");
-		
+
 		CustomGridLayout layout = new CustomGridLayout();
 		setLayout(layout);
 		layout.setDimensions(1, 0.1);
@@ -126,7 +124,7 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 	/**
 	 * Sets all Components either to visible or unvisible.
-	 * 
+	 *
 	 * @param b
 	 *            boolean : true if visible, false otherwise.
 	 */
@@ -190,7 +188,7 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 		/**
 		 * Constructor method.
-		 * 
+		 *
 		 * @param string
 		 *            String : double value to set as default in text field.
 		 * @param type
@@ -213,10 +211,10 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 		/**
 		 * Tests whether the input String is convertable into an Integer.
-		 * 
+		 *
 		 * @param str
 		 *            String : input String.
-		 * @return 
+		 * @return
 		 * boolean : true if convertible, false otherwise.
 		 */
 		private boolean isInteger(String str) {
@@ -235,10 +233,10 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 		/**
 		 * Tests whether the input String is convertable into an Double.
-		 * 
+		 *
 		 * @param str
 		 *            String : input String.
-		 * @return 
+		 * @return
 		 * boolean : true if convertible, false otherwise.
 		 */
 		private boolean isDouble(String str) {
@@ -254,9 +252,9 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 		}
 
 		/**
-		 * 
+		 *
 		 * @author Christoph Knapp
-		 * 
+		 *
 		 */
 		class doubleOnlyDocument extends PlainDocument {
 			/**
@@ -284,8 +282,8 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 	/**
 	 * Retrieves the String of the Gamma value from the Costume TextField.
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 * String : Gama value as a String.
 	 */
 	public String getGammaString() {
@@ -294,8 +292,8 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 	/**
 	 * Retrieves the number of subCategories as a String.
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 * String : "4" by default otherwise what the user typed in.
 	 */
 	public String getNumSubCat() {
@@ -307,8 +305,8 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 	/**
 	 * Retrieves the Alpha value set by the user.
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 * String : returns "e" for estimated and the Alpha value as
 	 * specified by the user otherwise.
 	 */
@@ -323,8 +321,8 @@ public class NumSubCatGammaAverage extends JPanel implements ActionListener,
 
 	/**
 	 * Retrieves what average type is selected.
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 * String : "mean" or "median".
 	 */
 	public String getUseMedian() {

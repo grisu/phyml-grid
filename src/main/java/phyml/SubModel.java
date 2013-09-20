@@ -337,6 +337,7 @@ public class SubModel extends JPanel implements ActionListener {
 		if(string.equals("YES")){
 			choice1.setSelected(true);
 			choice2.setSelected(false);
+
 		}else if(string.equals("NO")){
 			choice1.setSelected(false);
 			choice2.setSelected(true);
