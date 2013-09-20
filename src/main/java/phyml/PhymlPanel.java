@@ -81,6 +81,9 @@ public class PhymlPanel extends JPanel implements ActionListener {
 		} else {
 			sM = new SubstitutionModelPhyml("AA");
 		}
+        // need to do that here because apparently it should be the default
+        // any other position results in npe
+        sM.setNumSubCatGammaAverageCompVisible(false);
 		layout.setDimensions(1, 0.37);
 		mainPan.add(sM);
 		tS = new TreeSearchingPanel();

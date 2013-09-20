@@ -1,23 +1,19 @@
 package phyml;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Implements all components for specifying the "Proportion invariable sites"
  * and "One Substitutuon Rate Category" variable.
- * 
+ *
  * @author Christoph Knapp
- * 
+ *
  */
 
 public class ProportionAndSubrate extends JPanel implements ActionListener {
@@ -45,8 +41,7 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 		choice3.addActionListener(this);
 		choice4.addActionListener(this);
 		choice1.setSelected(true);
-		choice3.setSelected(true);
-		
+
 		CustomGridLayout layout = new CustomGridLayout();
 		setLayout(layout);
 		layout.setDimensions(1, 0.1);
@@ -75,7 +70,7 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 		layout.setDimensions(0.01, 0.4);
 		add(new JPanel());
 		layout.setDimensions(0.33, 0.4);
-		add(new JLabel("One Sub. Rate Category"));
+		add(new JLabel("Variable Rates Across Sites"));
 		layout.setDimensions(0.27, 0.4);
 		add(new JPanel());
 		layout.setDimensions(0.38, 0.4);
@@ -89,14 +84,19 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 		p2.add(choice3);
 		lo2.setDimensions(0.4, 1);
 		p2.add(choice4);
+
+        // setting variable rates to "Yes" by default
+        choice4.setSelected(true);
+
+
 	}
 
 	/**
 	 * CustomTextField extends JTextField. It is customized that the user is
 	 * only able to type in Double values.
-	 * 
+	 *
 	 * @author Christoph Knapp
-	 * 
+	 *
 	 */
 	class CustomTextField extends JTextField {
 		/**
@@ -106,7 +106,7 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 
 		/**
 		 * Constructor Method.
-		 * 
+		 *
 		 * @param string
 		 *            String : default value displayed in the text field.
 		 */
@@ -124,9 +124,9 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 
 		/**
 		 * Tests wheter the input String is convertable to a Number.
-		 * 
+		 *
 		 * @param str
-		 * 
+		 *
 		 * @return
 		 */
 		private boolean isNumber(String str) {
@@ -144,9 +144,9 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 		/**
 		 * Customizes the default PainDocument to only accept numbers and one
 		 * ".". Therefore only Double values can be typed in.
-		 * 
+		 *
 		 * @author Christoph Knapp
-		 * 
+		 *
 		 */
 		class doubleOnlyDocument extends PlainDocument {
 			/**
@@ -208,7 +208,7 @@ public class ProportionAndSubrate extends JPanel implements ActionListener {
 	/**
 	 * Retrieves the value for the command line value for the proportion of
 	 * invariable sites.
-	 * 
+	 *
 	 * @return String : "e" if estimated or Double value in String format if
 	 *         fixed.
 	 */
