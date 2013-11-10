@@ -3,7 +3,7 @@
 	<groupId>nz.org.nesi</groupId>
 	<artifactId>phyml-grid</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.10-SNAPSHOT</version>
+	<version>0.8-SNAPSHOT</version>
 	<name>a grisu client</name>
 
 	<parent>
@@ -415,7 +415,7 @@
 
 
 	<properties>
-		<grisu.version>0.7.9</grisu.version>
+		<grisu.version>0.8</grisu.version>
 	</properties>
 	<scm>
 		<url>https://github.com/grisu/phyml-grid</url>
